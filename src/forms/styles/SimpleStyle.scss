@@ -1,0 +1,326 @@
+// * SCSS Variables
+$primary: #004E89;
+$secondary: #002962;
+
+$black: #050505;
+$darker: #242424;
+$dark: #363636;
+$light: #8A8A8A;
+$lighter: #BABABA;
+$white: #FEFEFE;
+
+$error: #B00020;
+$success: #3A3;
+$warning: #C84;
+$info: #44A;
+
+$field_background: #F7F7F7;
+$field_border: #DCDCDC;
+$field_borderradius: 15px;
+$field_shadow: rgba(0,0,0,0.075);
+$field_focus_background: #FFF;
+
+
+
+
+// * FORM Label
+.mb-form-label
+{
+    font-size: 14px;
+    color: $primary;
+    font-weight: bold;
+}
+
+// * FORM Error
+.mb-form-error
+{
+    font-size: 12px;
+    color: $error;
+    padding: 2px 0 0 0;
+}
+
+// * FROM Hint
+.mb-form-hint
+{
+    font-size: 12px;
+    color: $light;
+    min-width: 100%;
+    height: auto;
+    padding: 1px 0 0 0;
+
+    &.onfocus
+    {
+        overflow: hidden;
+        opacity: 0;
+        max-height: 0px;
+        transition: opacity 0.5s ease, max-height 0.5s ease;
+    }
+}
+.mb-form-field.focus { .mb-form-hint.onfocus { opacity: 1; max-height: 150px; } }
+
+
+
+// * FORM Field
+.mb-form-field
+{
+    color-scheme: light;
+
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 20px;
+    &.mb-checkbox, &.mb-radio { margin-bottom: 10px; }
+
+    // Field Controler Box
+    .controller-box
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: stretch;
+        align-items: stretch;
+
+        .box-prefix, .box-suffix {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: $primary;
+            color: $white;
+            padding: 5px;
+            min-width: 40px;
+            cursor: default;
+        }
+        .box-prefix { border-top-left-radius: $field_borderradius; border-bottom-left-radius: $field_borderradius; }
+        .box-suffix { border-top-right-radius: $field_borderradius; border-bottom-right-radius: $field_borderradius; }
+
+        .box-field { display: flex; align-items: stretch; justify-content: stretch; flex: 1; position: relative; }
+    }
+    &.disabled .controller-box { opacity: 0.6; cursor: default; }
+
+
+    input, select, textarea
+    {
+        border: 1px solid $field_border;
+        background: $field_background;
+        box-shadow: inset 1px 1px 3px $field_shadow;
+        border-radius: $field_borderradius;
+
+        color: $darker;
+
+        font-family: inherit;
+        font-size: 14px;
+        line-height: 14px;
+
+        min-height: 40px;
+        width: 100%;
+        padding: 0 12px;
+
+        &:focus
+        {
+            outline: 2px solid rgba($primary, 0.2);
+            background: $field_focus_background;
+        }
+
+        &::placeholder { color: rgba($darker, 0.5); }
+        &:-ms-input-placeholder { color: rgba($darker, 0.5); }
+        &::-ms-input-placeholder { color: rgba($darker, 0.5); }
+    }
+    .with-prefix { input, select, textarea { border-top-left-radius: 0; border-bottom-left-radius: 0; } }
+    .with-suffix { input, select, textarea { border-top-right-radius: 0; border-bottom-right-radius: 0; } }
+
+    textarea
+    {
+        min-height: 120px;
+        resize: vertical;
+        padding: 10px 12px;
+    }
+
+    select, textarea
+    {
+        &::-webkit-scrollbar { width: 8px; }
+        &::-webkit-scrollbar-track { background: rgba($primary, 0.2); border-top-right-radius: $field_borderradius; }
+        &::-webkit-scrollbar-thumb { background: rgba($primary, 0.5); border-radius: $field_borderradius; }
+        &::-webkit-scrollbar-thumb:hover { background: $primary; }
+    }
+
+
+
+    .field-password-showhide
+    {
+        position: absolute;
+        height: 24px;
+        top: calc(50% - 12px);
+        right: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+
+        color: rgba($darker, 0.9);
+    }
+
+    .field-password-strength
+    {
+        position: absolute;
+        bottom: -2px;
+        left: $field_borderradius;
+        right: $field_borderradius;
+        height: 3px;
+    
+        .bar { transition: 0.5s ease-in-out; width: 0; height: 100%; }
+
+        .label { position: absolute; right: 0px; top: 3px; text-transform: uppercase; font-size: 11px; }
+
+        &.strength-1 { .bar { width: 20%; background: #b22; } .label { color: #b22; } }
+        &.strength-2 { .bar { width: 40%; background: #b52; } .label { color: #b52; } }
+        &.strength-3 { .bar { width: 60%; background: #b92; } .label { color: #b92; } }
+        &.strength-4 { .bar { width: 80%; background: #AA2; } .label { color: #AA2; } }
+        &.strength-5 { .bar { width: 100%; background: #2B2; } .label { color: #2B2; } }
+    }
+
+
+
+    &.mb-checkbox
+    {
+        label
+        {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+
+            input { opacity: 0; height: 0; width: 0; min-height: 0; }
+
+            .check {
+                height: 24px;
+                width: 24px;
+
+                border: 1px solid $field_border;
+                background: $field_background;
+                box-shadow: inset 1px 1px 3px $field_shadow;
+
+                transition: background-color 0.4s ease;
+
+                border-radius: 4px;
+                margin-right: 10px;
+            }
+
+            /* Create the checkmark/indicator (hidden when not checked) */
+            .check:after
+            {
+                content: "";
+                position: absolute;
+                display: block;
+                opacity: 0;
+
+                left: 8px;
+                top: 4px;
+                width: 5px;
+                height: 10px;
+                border: solid $white;
+                border-width: 0 2px 2px 0;
+                -webkit-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
+
+            /* On mouse-over, add a grey background color */
+            &:hover input ~ .check,
+            &:focus .check {
+                outline: 2px solid rgba($primary, 0.2);
+                background: $field_focus_background;
+            }
+
+            /* When the checkbox is checked, add a blue background */
+            input:checked ~ .check { background-color: $primary; }
+            input:checked ~ .check:after { opacity: 1; }
+        }
+
+        &.focus .check {
+            outline: 2px solid rgba($primary, 0.2);
+            background: $field_focus_background;
+        }
+    }
+    
+
+
+    // * RADIO BUTTON
+    &.mb-radio
+    {
+        label
+        {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+
+            input { opacity: 0; height: 0; width: 0; min-height: 0; }
+
+            .check
+            {
+                height: 24px;
+                width: 24px;
+
+                border: 1px solid $field_border;
+                background: $field_background;
+                box-shadow: inset 1px 1px 3px $field_shadow;
+
+                transition: background-color 0.4s ease;
+
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+
+            /* Create the checkmark/indicator (hidden when not checked) */
+            .check:after
+            {
+                content: "";
+                position: absolute;
+                display: block;
+                opacity: 0;
+
+                left: 8px;
+                top: 8px;
+                width: 8px;
+                height: 8px;
+                background-color: $white;
+                border-radius: 50%;
+            }
+
+            /* On mouse-over, add a grey background color */
+            &:hover input ~ .check,
+            &:focus .check {
+                outline: 2px solid rgba($primary, 0.2);
+                background: $field_focus_background;
+            }
+
+            /* When the checkbox is checked, add a blue background */
+            input:checked ~ .check { background-color: $primary; }
+            input:checked ~ .check:after { opacity: 1; }
+        }
+
+        &.focus .check {
+            outline: 2px solid rgba($primary, 0.2);
+            background: $field_focus_background;
+        }
+    }
+
+
+
+    &.error
+    {
+        .box-prefix, .box-suffix { background-color: $error; }
+
+        input, select, textarea
+        {
+            border-color: $error;
+            &:focus { outline: 2px solid rgba($error, 0.2); }
+        }
+    }
+}
